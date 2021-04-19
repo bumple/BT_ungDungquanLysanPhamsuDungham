@@ -2,33 +2,50 @@ let product = ["Samsung Galaxy Fit E", "Samsung Galaxy Watch Active",
     "Samsung Galaxy Watch 42mm", "Samsung Galaxy M20",
     "Samsung Galaxy A30", "Samsung Galaxy A50",
     "Samsung Galaxy A70", "Samsung Galaxy S10 128GB",
-    "Samsung Galaxy S10 Plus 128GB"]
+    "Samsung Galaxy S10 Plus 128GB",]
 
-
-let textTable = ""
-let nProduct = product.length
-for (let i = 0; i < nProduct; i++) {
-    textTable += "<tr>";
-    textTable += "<td>" + product[i] + "</td>"
-    textTable += "<td>" + '<button type="button" onClick="editButton()" >Edit</button>' + "</td>"
-    textTable += "<td>" + '<button type="button" onClick="deleteButton()">Delete</button>' + "</td>"
-    textTable += "</tr>";
+function showNumberofProduct(number) {
+    document.getElementById("numberOfproduct").innerHTML = "Tổng sản phẩm: " + number
 }
-document.getElementById("tableId").innerHTML = textTable
+showNumberofProduct(product.length);
 
 
-let inputProduct = document.getElementById("input").value;
-console.log(inputProduct)
-
-function addProduct(input1) {
-    product.push(input1);
+function showProducts() {
+    let textTable = ""
+    for (let i = 0; i < product.length; i++) {
+        textTable += "<tr>";
+        textTable += '<td id="'+i+'">' + product[i] + "</td>"
+        textTable += '<td><button type="button" onclick="">Edit</button></td>'
+        textTable += "<td>";
+        textTable += "<button onclick='deleteProduct("+i+")'>Delete</button>";
+        textTable += "</td>";
+        textTable += "</tr>";
+    }
+    document.getElementById("tableId").innerHTML = textTable;
 }
 
-console.log(product);
-console.log(addProduct());
+showProducts();
 
 
-function deleteButton() {
+
+
+function addProduct() {
+
+    let inputProduct = document.getElementById("input").value;
+    product.push(inputProduct);
+    showProducts();
+    showNumberofProduct(product.length);
+}
+
+
+
+function deleteProduct(index) {
+    let comfirm = confirm("Bạn có chắc chắn muốn xóa?")
+    if(comfirm === true){
+        product.splice(index, 1)
+        showProducts();
+        showNumberofProduct(product.length);
+    }
 
 }
 
